@@ -218,8 +218,13 @@ namespace GeneralPurpose.Types
 
         public static float Distance(GpVector3 a, GpVector3 b)
         {
+            return Mathf.Sqrt(SqrDistance(a,b));
+        }
+
+        public static float SqrDistance(GpVector3 a, GpVector3 b)
+        {
             var vector = new GpVector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-            return Mathf.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z);
+            return vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z;
         }
 
         public static GpVector3 ClampMagnitude(GpVector3 vector, float maxLength)
