@@ -1,37 +1,27 @@
 ﻿using System;
+using GeneralPurpose.Utils;
 
-namespace GeneralPurpose.Navigation.NavMesh
+namespace GeneralPurpose.Types
 {
     public struct GpVector3
     {
         public const float EPSILON = 1E-05f;
 
         public float X;
-
         public float Y;
-
         public float Z;
 
         public float this[int index]
         {
             get
             {
-                float result;
                 switch (index)
                 {
-                    case 0:
-                        result = X;
-                        break;
-                    case 1:
-                        result = Y;
-                        break;
-                    case 2:
-                        result = Z;
-                        break;
-                    default:
-                        throw new IndexOutOfRangeException("Invalid Vector3 index!");
+                    case 0: return X;
+                    case 1: return Y;
+                    case 2: return Z;
+                    default: throw new IndexOutOfRangeException("Invalid index for GpVector3. Should be less than 3.");
                 }
-                return result;
             }
             set
             {
@@ -47,7 +37,7 @@ namespace GeneralPurpose.Navigation.NavMesh
                         Z = value;
                         break;
                     default:
-                        throw new IndexOutOfRangeException("Invalid Vector3 index!");
+                        throw new IndexOutOfRangeException("Invalid index for GpVector3. Should be less than 3.");
                 }
             }
         }
@@ -181,6 +171,7 @@ namespace GeneralPurpose.Navigation.NavMesh
         {
             float num = Magnitude(value);
             GpVector3 result;
+
             if (num > EPSILON)
             {
                 result = value / num;
@@ -189,6 +180,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             {
                 result = Zero;
             }
+
             return result;
         }
 
@@ -201,6 +193,7 @@ namespace GeneralPurpose.Navigation.NavMesh
         {
             var num = Dot(onNormal, onNormal);
             GpVector3 result;
+
             if (num < float.Epsilon)
             {
                 result = Zero;
@@ -209,6 +202,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             {
                 result = onNormal * Dot(vector, onNormal) / num;
             }
+
             return result;
         }
 

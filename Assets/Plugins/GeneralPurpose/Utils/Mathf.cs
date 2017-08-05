@@ -1,69 +1,35 @@
-﻿using System;
+﻿using GeneralPurpose.Types;
+using System;
 
-namespace GeneralPurpose.Navigation.NavMesh
+namespace GeneralPurpose.Utils
 {
     public struct Mathf
     {
         public const float PI = 3.14159274f;
-
         public const float DEG_TO_RAD = 0.0174532924f;
-
         public const float RAD_TO_DEG = 57.29578f;
 
-        public static float Sin(float f)
-        {
-            return (float)Math.Sin(f);
-        }
+        public static float Sin(float f) => (float)Math.Sin(f);
 
-        public static float Cos(float f)
-        {
-            return (float)Math.Cos(f);
-        }
+        public static float Cos(float f) => (float)Math.Cos(f);
 
-        public static float Tan(float f)
-        {
-            return (float)Math.Tan(f);
-        }
+        public static float Tan(float f) => (float)Math.Tan(f);
 
-        public static float Asin(float f)
-        {
-            return (float)Math.Asin(f);
-        }
+        public static float Asin(float f) => (float)Math.Asin(f);
 
-        public static float Acos(float f)
-        {
-            return (float)Math.Acos(f);
-        }
+        public static float Acos(float f) => (float)Math.Acos(f);
 
-        public static float Atan(float f)
-        {
-            return (float)Math.Atan(f);
-        }
+        public static float Atan(float f) => (float)Math.Atan(f);
 
-        public static float Atan2(float y, float x)
-        {
-            return (float)Math.Atan2(y, x);
-        }
+        public static float Atan2(float y, float x) => (float)Math.Atan2(y, x);
 
-        public static float Sqrt(float f)
-        {
-            return (float)Math.Sqrt(f);
-        }
+        public static float Sqrt(float f) => (float)Math.Sqrt(f);
 
-        public static float Abs(float f)
-        {
-            return Math.Abs(f);
-        }
+        public static float Abs(float f) => Math.Abs(f);
 
-        public static int Abs(int value)
-        {
-            return Math.Abs(value);
-        }
+        public static int Abs(int value) => Math.Abs(value);
 
-        public static float Min(float a, float b)
-        {
-            return (a >= b) ? b : a;
-        }
+        public static float Min(float a, float b) => (a >= b) ? b : a;
 
         public static float Min(params float[] values)
         {
@@ -88,10 +54,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result;
         }
 
-        public static int Min(int a, int b)
-        {
-            return (a >= b) ? b : a;
-        }
+        public static int Min(int a, int b) => (a >= b) ? b : a;
 
         public static int Min(params int[] values)
         {
@@ -116,10 +79,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result;
         }
 
-        public static float Max(float a, float b)
-        {
-            return (a <= b) ? b : a;
-        }
+        public static float Max(float a, float b) => (a <= b) ? b : a;
 
         public static float Max(params float[] values)
         {
@@ -144,10 +104,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result;
         }
 
-        public static int Max(int a, int b)
-        {
-            return (a <= b) ? b : a;
-        }
+        public static int Max(int a, int b) => (a <= b) ? b : a;
 
         public static int Max(params int[] values)
         {
@@ -172,65 +129,29 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result;
         }
 
-        public static float Pow(float f, float p)
-        {
-            return (float)Math.Pow(f, p);
-        }
+        public static float Pow(float f, float p) => (float)Math.Pow(f, p);
 
-        public static float Exp(float power)
-        {
-            return (float)Math.Exp(power);
-        }
+        public static float Exp(float power) => (float)Math.Exp(power);
 
-        public static float Log(float f, float p)
-        {
-            return (float)Math.Log(f, p);
-        }
+        public static float Log(float f, float p) => (float)Math.Log(f, p);
 
-        public static float Log(float f)
-        {
-            return (float)Math.Log(f);
-        }
+        public static float Log(float f) => (float)Math.Log(f);
 
-        public static float Log10(float f)
-        {
-            return (float)Math.Log10(f);
-        }
+        public static float Log10(float f) => (float)Math.Log10(f);
 
-        public static float Ceil(float f)
-        {
-            return (float)Math.Ceiling(f);
-        }
+        public static float Ceil(float f) => (float)Math.Ceiling(f);
 
-        public static float Floor(float f)
-        {
-            return (float)Math.Floor(f);
-        }
+        public static float Floor(float f) => (float)Math.Floor(f);
 
-        public static float Round(float f)
-        {
-            return (float)Math.Round(f);
-        }
+        public static float Round(float f) => (float)Math.Round(f);
 
-        public static int CeilToInt(float f)
-        {
-            return (int)Math.Ceiling(f);
-        }
+        public static int CeilToInt(float f) => (int)Math.Ceiling(f);
 
-        public static int FloorToInt(float f)
-        {
-            return (int)Math.Floor(f);
-        }
+        public static int FloorToInt(float f) => (int)Math.Floor(f);
 
-        public static int RoundToInt(float f)
-        {
-            return (int)Math.Round(f);
-        }
+        public static int RoundToInt(float f) => (int)Math.Round(f);
 
-        public static float Sign(float f)
-        {
-            return (f < 0f) ? -1f : 1f;
-        }
+        public static float Sign(float f) => (f < 0f) ? -1f : 1f;
 
         public static float Clamp(float value, float min, float max)
         {
@@ -276,23 +197,19 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result;
         }
 
-        public static float Lerp(float a, float b, float t)
-        {
-            return a + (b - a) * Clamp01(t);
-        }
+        public static float Lerp(float a, float b, float t) => a + (b - a) * Clamp01(t);
 
-        public static float LerpUnclamped(float a, float b, float t)
-        {
-            return a + (b - a) * t;
-        }
+        public static float LerpUnclamped(float a, float b, float t) => a + (b - a) * t;
 
         public static float LerpAngle(float a, float b, float t)
         {
             float num = Repeat(b - a, 360f);
+
             if (num > 180f)
             {
                 num -= 360f;
             }
+
             return a + num * Clamp01(t);
         }
 
@@ -351,10 +268,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result;
         }
 
-        public static bool Approximately(float a, float b)
-        {
-            return Abs(b - a) < Max(1E-06f * Max(Abs(a), Abs(b)), float.Epsilon * 8f);
-        }
+        public static bool Approximately(float a, float b) => Abs(b - a) < Max(1E-06f * Max(Abs(a), Abs(b)), float.Epsilon * 8f);
 
         public static float SmoothDamp(float current, float target, ref float currentVelocity, float smoothTime, float maxSpeed, float deltaTime)
         {
@@ -391,25 +305,11 @@ namespace GeneralPurpose.Navigation.NavMesh
             return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
         }
 
-        public static float Repeat(float t, float length)
-        {
-            return t - Floor(t / length) * length;
-        }
+        public static float Repeat(float t, float length) => t - Floor(t / length) * length;
 
-        public static float PingPong(float t, float length)
-        {
-            t = Repeat(t, length * 2f);
-            return length - Abs(t - length);
-        }
+        public static float PingPong(float t, float length) => length - Abs(Repeat(t, length * 2f) - length);
 
-        public static float InverseLerp(float a, float b, float value)
-        {
-            float result;
-
-            result = a != b ? Clamp01((value - a) / (b - a)) : 0f;
-
-            return result;
-        }
+        public static float InverseLerp(float a, float b, float value) => Approximately(a, b) ? 0f : Clamp01((value - a) / (b - a));
 
         public static float DeltaAngle(float current, float target)
         {
@@ -432,7 +332,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             var num5 = num * num4 - num2 * num3;
 
             bool result2;
-            if (num5 == 0f)
+            if (Approximately(num5, 0f))
             {
                 result2 = false;
             }
@@ -457,7 +357,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             var num5 = num * num4 - num2 * num3;
             bool result2;
 
-            if (num5 == 0f)
+            if (Approximately(num5,0f))
             {
                 result2 = false;
             }
@@ -487,7 +387,7 @@ namespace GeneralPurpose.Navigation.NavMesh
             return result2;
         }
 
-        internal static long RandomToLong(System.Random r)
+        internal static long RandomToLong(Random r)
         {
             var array = new byte[8];
             r.NextBytes(array);
