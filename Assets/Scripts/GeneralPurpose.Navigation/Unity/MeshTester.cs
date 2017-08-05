@@ -9,6 +9,7 @@ public class MeshTester : MonoBehaviour
     [SerializeField] private GameObject m_NodePrefab = null;
     [SerializeField] private GameObject m_DirectionPrefab = null;
     [SerializeField] private GameObject m_DestinationPrefab = null;
+    [SerializeField] private Material m_EdgeMaterial = null;
 
     [SerializeField] private Vector3 m_Destination = Vector3.up;
 
@@ -56,7 +57,56 @@ public class MeshTester : MonoBehaviour
             }
         }
 
+        if (GUILayout.Button("Get Connected Triangles"))
+        {
+            var connectedTris = m_GpNavMesh.GetConnectedTriangles();
+
+            var i = 0;
+            foreach (var connectedTri in connectedTris)
+            {
+                Debug.Log($"Tri{i} is connected to {connectedTri.Value.Count} other Tris.");
+                i++;
+            }
+        }
+
+        if (GUILayout.Button("Build Graph"))
+        {
+            var gpGraph = new GpGraph(m_GpNavMesh);
+
+            // Create objects to show the center of each NavMesh triangle
+            int i = 0;
+            foreach(var node in gpGraph.GetNodes())
+            {
+                CreateNode($"Node:{i}", node.Position.ToVector3());
+                i++;
+            }
+
+            // Create the edges of the mesh
+            i = 0;
+            foreach (var edge in gpGraph.GetEdges())
+            {
+                CreateEdge($"Edge:{i}", edge.NodeA.Position.ToVector3(), edge.NodeB.Position.ToVector3());
+                i++;
+            }
+        }
+
         GUILayout.EndArea();
+    }
+
+    private void CreateEdge(string edgeName, Vector3 start, Vector3 end)
+    {
+        var lineGo = new GameObject(edgeName);
+        lineGo.transform.SetParent(m_NavMeshGo);
+        lineGo.transform.position = start;
+
+        var lineRenderer = lineGo.AddComponent<LineRenderer>();
+        lineRenderer.material = m_EdgeMaterial;
+
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
     }
 
     private void CreateDestination(Vector3 position)

@@ -178,6 +178,7 @@ MonoBehaviour:
     type: 2}
   m_DestinationPrefab: {fileID: 1475619056927970, guid: 27ee89d5db552ae408c5ca99edd2bcb3,
     type: 2}
+  m_EdgeMaterial: {fileID: 2100000, guid: bbfbf246c6e528c4aa66cf6e872e8a49, type: 2}
   m_Destination: {x: 0, y: 1, z: 0}
 --- !u!4 &1172189730
 Transform:

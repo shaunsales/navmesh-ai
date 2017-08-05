@@ -1,4 +1,7 @@
-﻿namespace GeneralPurpose.Types
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+
+namespace GeneralPurpose.Types
 {
     public class GpNavMesh
     {
@@ -37,6 +40,37 @@
             }
 
             return vectorField;
+        }
+
+        public Dictionary<int, List<int>> GetConnectedTriangles()
+        {
+            var triCount = Triangles.Length;
+            var connectedTriangles = new Dictionary<int, List<int>>();
+
+            for (var i = 0; i < triCount; i++)
+            {
+                for (var j = 0; j < triCount; j++)
+                {
+                    // Don't test against the current triangle
+                    if (i != j)
+                    {
+                        // Are any edges identical?
+                        if (Triangles[i].IsConnected(Triangles[j]))
+                        {
+                            if (connectedTriangles.ContainsKey(i))
+                            {
+                                connectedTriangles[i].Add(j);
+                            }
+                            else
+                            {
+                                connectedTriangles.Add(i, new List<int> { j });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return connectedTriangles;
         }
     }
 }

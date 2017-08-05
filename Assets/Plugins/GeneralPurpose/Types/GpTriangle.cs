@@ -33,5 +33,23 @@ namespace GeneralPurpose.Types
         {
             return (V1 + V2 + V3) / 3.0f;
         }
+
+        /// <summary>
+        /// Test if another triangle shares any edges with this triangle by checking if the share at least two vertices.
+        /// </summary>
+        public bool IsConnected(GpTriangle otherTriangle)
+        {
+            var connectCount = 0;
+
+            for (var i = 0; i < 3; i++)
+            {
+                if (this[i] == otherTriangle.V1 || this[i] == otherTriangle.V2 || this[i] == otherTriangle.V3)
+                {
+                    connectCount++;
+                }
+            }
+
+            return connectCount > 1;
+        }
     }
 }
