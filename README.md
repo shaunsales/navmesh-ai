@@ -1,5 +1,7 @@
 # General Purpose NavMesh/AI for .Net
 
+![Image of Graph](https://dl.dropboxusercontent.com/u/23196369/NavMesh.PNG)
+
 ## About
 NavMesh/AI is an open source project for both exporting generated NavMesh data, and running pathfinding and agent _AI on the server_. It aims to be a lightweight framework that implements a solid game AI foundation, and is easy for developers to extend for their own needs.
 
