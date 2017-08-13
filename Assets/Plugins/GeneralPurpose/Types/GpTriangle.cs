@@ -51,5 +51,16 @@ namespace GeneralPurpose.Types
 
             return connectCount > 1;
         }
+
+        // Note, this ignores the triangles Y component and may yield odd results 
+        public bool IsPointInsideXZ(GpVector3 p)
+        {
+            var a = 1f / 2f * (-V2.Z * V3.X + V1.Z * (-V2.X + V3.X) + V1.X * (V2.Z - V3.Z) + V2.X * V3.Z);
+            var sign = a < 0f ? -1f : 1f;
+            var s = (V1.Z * V3.X - V1.X * V3.Z + (V3.Z - V1.Z) * p.X + (V1.X - V3.X) * p.Z) * sign;
+            var t = (V1.X * V2.Z - V1.Z * V2.X + (V1.Z - V2.Z) * p.X + (V2.X - V1.X) * p.Z) * sign;
+
+            return s > 0 && t > 0 && (s + t) < 2 * a * sign;
+        }
     }
 }
