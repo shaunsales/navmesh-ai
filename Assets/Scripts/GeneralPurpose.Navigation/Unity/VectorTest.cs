@@ -1,4 +1,6 @@
-﻿using GeneralPurpose.Navigation.Unity;
+﻿using ExtensionMethods;
+using GeneralPurpose.Navigation.Unity;
+using GeneralPurpose.Utils;
 using UnityEngine;
 
 public class VectorTest : MonoBehaviour
@@ -55,7 +57,8 @@ public class VectorTest : MonoBehaviour
         m_Edge.SetPosition(1, m_EdgeBPos);
         m_ProjNode.transform.position = m_ProjPos;
 
-        m_ProjPos = GetNearestPointOnEdge(m_OriginPos, m_DestPos, m_EdgeAPos, m_EdgeBPos);
+        // Find the nearest point on the line
+        m_ProjPos = VectorMath.GetNearestPointOnSegment(m_OriginPos.ToGpVector3(), m_DestPos.ToGpVector3(), m_EdgeAPos.ToGpVector3(), m_EdgeBPos.ToGpVector3()).ToVector3();
     }
 
     //private void OnGUI()
@@ -69,78 +72,4 @@ public class VectorTest : MonoBehaviour
 
     //    GUILayout.EndArea();
     //}
-
-    private Vector3 GetNearestPointOnEdge(Vector3 line1Start, Vector3 line1End, Vector3 line2Start, Vector3 line2End)
-    {
-        Vector3 nearestPoint;
-        var line1Dir = line1End - line1Start;
-        var line2Dir = line2End - line2Start;
-
-        var isIntersecting = LineLineIntersection(line1Start, line1Dir, line2Start, line2Dir, out nearestPoint);
-
-        float x;
-        float y;
-        var isXClamped = TryClamp(nearestPoint.x, line2Start.x, line2End.x, out x);
-        var isYClamped = TryClamp(nearestPoint.y, line2Start.y, line2End.y, out y);
-
-        var line1DirNrm = line1Dir.normalized;
-        var line12StartDot = Vector3.Dot(line1DirNrm, (line2Start - line1Start).normalized);
-        var line12EndDot = Vector3.Dot(line1DirNrm, (line2End - line1Start).normalized);
-
-        if (isXClamped || isYClamped || line12StartDot < 0 || line12EndDot < 0)
-        {
-            var aDist = Vector3.Distance(line2Start, line1End);
-            var bDist = Vector3.Distance(line2End, line1End);
-
-            x = aDist < bDist ? line2Start.x : line2End.x;
-            y = aDist < bDist ? line2Start.y : line2End.y;
-        }
-
-        return new Vector3(x, y, 0);
-    }
-
-    private bool TryClamp(float value, float min, float max, out float result)
-    {
-        // Correct the min and max to account for negative to positive ranges
-        var newMin = Mathf.Min(min, max);
-        var newMax = Mathf.Max(min, max);
-
-        if (value < newMin)
-        {
-            result = newMin;
-            return true;
-        }
-
-        if (value > newMax)
-        {
-            result = newMax;
-            return true;
-        }
-
-        result = value;
-        return false;
-    }
-
-    private bool LineLineIntersection(Vector3 line1Start, Vector3 line1Dir, Vector3 line2Start, Vector3 line2Dir, out Vector3 intersection)
-    {
-        var lineVec3 = line2Start - line1Start;
-        var crossVec1and2 = Vector3.Cross(line1Dir, line2Dir);
-        var crossVec3and2 = Vector3.Cross(lineVec3, line2Dir);
-
-        var planarFactor = Vector3.Dot(lineVec3, crossVec1and2);
-
-        // Lines are coplanar and not parallel
-        if (Mathf.Abs(planarFactor) < 0.0001f && crossVec1and2.sqrMagnitude > 0.0001f)
-        {
-            var sqrMag = crossVec1and2.sqrMagnitude;
-            var amount = Vector3.Dot(crossVec3and2, crossVec1and2) / sqrMag;
-
-            intersection = line1Start + (line1Dir * amount);
-
-            return true;
-        }
-
-        intersection = Vector3.zero;
-        return false;
-    }
 }

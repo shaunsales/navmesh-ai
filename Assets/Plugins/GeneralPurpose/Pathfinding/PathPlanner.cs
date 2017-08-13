@@ -47,7 +47,7 @@ namespace GeneralPurpose.Pathfinding
 
             foreach (var gpNode in m_GpGraph.GetNodes())
             {
-                var sqrDist = GpVector3.SqrDistance(position, gpNode.Position);
+                var sqrDist = GpVector3.DistanceSqr(position, gpNode.Position);
 
                 if (sqrDist < closestDist)
                 {

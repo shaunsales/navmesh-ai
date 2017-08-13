@@ -153,6 +153,28 @@ namespace GeneralPurpose.Utils
 
         public static float Sign(float f) => (f < 0f) ? -1f : 1f;
 
+        public static bool Clamp(float value, float min, float max, out float clampedValue)
+        {
+            // Correct the min and max to account for negative to positive ranges
+            var newMin = Min(min, max);
+            var newMax = Max(min, max);
+
+            if (value < newMin)
+            {
+                clampedValue = newMin;
+                return true;
+            }
+
+            if (value > newMax)
+            {
+                clampedValue = newMax;
+                return true;
+            }
+
+            clampedValue = value;
+            return false;
+        }
+
         public static float Clamp(float value, float min, float max)
         {
             if (value < min)
@@ -323,71 +345,7 @@ namespace GeneralPurpose.Utils
             return num;
         }
 
-        internal static bool LineIntersection(GpVector3 p1, GpVector3 p2, GpVector3 p3, GpVector3 p4, ref GpVector3 result)
-        {
-            var num = p2.X - p1.X;
-            var num2 = p2.Y - p1.Y;
-            var num3 = p4.X - p3.X;
-            var num4 = p4.Y - p3.Y;
-            var num5 = num * num4 - num2 * num3;
-
-            bool result2;
-            if (Approximately(num5, 0f))
-            {
-                result2 = false;
-            }
-            else
-            {
-                var num6 = p3.X - p1.X;
-                var num7 = p3.Y - p1.Y;
-                var num8 = (num6 * num4 - num7 * num3) / num5;
-
-                result = new GpVector3(p1.X + num8 * num, p1.Y + num8 * num2);
-                result2 = true;
-            }
-            return result2;
-        }
-
-        internal static bool LineSegmentIntersection(GpVector3 p1, GpVector3 p2, GpVector3 p3, GpVector3 p4, ref GpVector3 result)
-        {
-            var num = p2.X - p1.X;
-            var num2 = p2.Y - p1.Y;
-            var num3 = p4.X - p3.X;
-            var num4 = p4.Y - p3.Y;
-            var num5 = num * num4 - num2 * num3;
-            bool result2;
-
-            if (Approximately(num5,0f))
-            {
-                result2 = false;
-            }
-            else
-            {
-                var num6 = p3.X - p1.X;
-                var num7 = p3.Y - p1.Y;
-                var num8 = (num6 * num4 - num7 * num3) / num5;
-                if (num8 < 0f || num8 > 1f)
-                {
-                    result2 = false;
-                }
-                else
-                {
-                    var num9 = (num6 * num2 - num7 * num) / num5;
-                    if (num9 < 0f || num9 > 1f)
-                    {
-                        result2 = false;
-                    }
-                    else
-                    {
-                        result = new GpVector3(p1.X + num8 * num, p1.Y + num8 * num2);
-                        result2 = true;
-                    }
-                }
-            }
-            return result2;
-        }
-
-        internal static long RandomToLong(Random r)
+        public static long RandomToLong(Random r)
         {
             var array = new byte[8];
             r.NextBytes(array);

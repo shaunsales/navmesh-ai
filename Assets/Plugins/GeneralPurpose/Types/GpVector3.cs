@@ -169,7 +169,7 @@ namespace GeneralPurpose.Types
 
         public static GpVector3 Normalize(GpVector3 value)
         {
-            float num = Magnitude(value);
+            var num = Magnitude(value);
             GpVector3 result;
 
             if (num > EPSILON)
@@ -218,10 +218,10 @@ namespace GeneralPurpose.Types
 
         public static float Distance(GpVector3 a, GpVector3 b)
         {
-            return Mathf.Sqrt(SqrDistance(a,b));
+            return Mathf.Sqrt(DistanceSqr(a,b));
         }
 
-        public static float SqrDistance(GpVector3 a, GpVector3 b)
+        public static float DistanceSqr(GpVector3 a, GpVector3 b)
         {
             var vector = new GpVector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
             return vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z;
