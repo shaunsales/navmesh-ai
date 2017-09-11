@@ -75,22 +75,36 @@ public class MeshTester : MonoBehaviour
 
             // Create objects to show the center of each NavMesh triangle
             int i = 0;
-            foreach(var node in gpGraph.GetNodes())
+            foreach (var node in gpGraph.Nodes)
             {
                 CreateNode($"Node:{i}", node.Position.ToVector3());
                 i++;
             }
 
-            // Create the edges of the mesh
-            i = 0;
-            foreach (var edge in gpGraph.GetEdges())
-            {
-                CreateEdge($"Edge:{i}", edge.NodeA.Position.ToVector3(), edge.NodeB.Position.ToVector3());
-                i++;
-            }
+            VisitNode(gpGraph.Nodes[0]);
         }
 
         GUILayout.EndArea();
+    }
+
+    private void VisitNode(GpNode node, GpNode parentNode = null)
+    {
+        if (!node.IsVisited)
+        {
+            node.SetVisited(true);
+
+            if (parentNode != null)
+            {
+                node.SetParentNode(parentNode);
+
+                CreateEdge($"NodeEdge:{parentNode.Id}", parentNode.Position.ToVector3(), node.Position.ToVector3());
+            }
+
+            foreach (var neighborNode in node.Neighbors)
+            {
+                VisitNode(neighborNode, node);
+            }
+        }
     }
 
     private void CreateEdge(string edgeName, Vector3 start, Vector3 end)

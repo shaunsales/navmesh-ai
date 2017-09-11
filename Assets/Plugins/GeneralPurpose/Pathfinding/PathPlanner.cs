@@ -45,7 +45,7 @@ namespace GeneralPurpose.Pathfinding
             var closestDist = float.MaxValue;
             GpNode closestNode = null;
 
-            foreach (var gpNode in m_GpGraph.GetNodes())
+            foreach (var gpNode in m_GpGraph.Nodes)
             {
                 var sqrDist = GpVector3.DistanceSqr(position, gpNode.Position);
 
